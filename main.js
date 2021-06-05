@@ -21,19 +21,19 @@ client.on("message", msg => {
 		}
 
 		try{
-			playSong(msg.member.voice.channel, url).then(r => {
-				msg.channel.send("Aight mate I've added the song for ya.");
+			playSong(url).then(r => {
+				msg.reply("Aight mate I've added the song for ya.");
 			});
 		}
 		catch(e)
 		{
-			msg.channel.send("Sorry lads and lasses something's gone wrong.")
+			msg.reply("Sorry mate something's gone wrong.")
 		}
 
 	}
 	else if(msg.content.startsWith('!play') && !msg.member.voice.channel)
 	{
-		msg.channel.send('Nah');
+		msg.reply('Please connect to a voice channel to play something!');
 	}
 })
 
@@ -42,7 +42,7 @@ async function joinChannel(channel)
 	botConnection.channelConnection = await channel.join()
 }
 
-async function playSong(channel, songUrl)
+async function playSong(songUrl)
 {
 	botConnection.channelConnection.play(ytdl(songUrl), { filter: 'audioonly' });
 }
